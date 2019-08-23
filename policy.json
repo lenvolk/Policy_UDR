@@ -1,0 +1,52 @@
+{
+  "properties": {
+    "displayName": "Missing UDR",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "No User Defined Route Table",
+    "metadata": {
+      "category": "_MorganStanley",
+      "createdBy": "dfba0ed0-168c-4132-9826-50f182c19b96",
+      "createdOn": "2019-04-30T19:23:38.9256833Z",
+      "updatedBy": "dfba0ed0-168c-4132-9826-50f182c19b96",
+      "updatedOn": "2019-04-30T23:55:42.3685671Z"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "anyOf": [
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/virtualNetworks"
+              },
+              {
+                "field": "Microsoft.Network/virtualNetworks/subnets[*].routeTable.id",
+                "exists": false
+              }
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/virtualNetworks/subnets"
+              },
+              {
+                "field": "Microsoft.Network/virtualNetworks/subnets/routeTable.id",
+                "exists": false
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  },
+  "id": "/subscriptions/44c8c436-91c2-4b6b-8497-71b197a6fe5f/providers/Microsoft.Authorization/policyDefinitions/9274c5dd-af33-4e60-83cd-8ec7d0695193",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "9274c5dd-af33-4e60-83cd-8ec7d0695193"
+}
